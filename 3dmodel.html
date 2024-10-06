@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEO Orrery Web App</title>
+    <link rel="shortcut icon" href="ourlogo.jpg" type="image/x-icon">
+
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+        #info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+        #planet-details {
+            display: none;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+            max-width: 300px;
+        }
+        #planet-details h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h2>Near-Earth Object (NEO) Orrery</h2>
+        <p>Interact with the solar system and visualize NEOs. Click on a planet for details.</p>
+    </div>
+
+    <div id="planet-details">
+        <h2 id="planet-name">Planet Name</h2>
+        <p id="planet-info">This is a planet description.</p>
+        <p id="planet-mass"></p>
+        <p id="planet-moons"></p>
+        <p id="planet-orbital-period"></p>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.rawgit.com/mrdoob/three.js/r128/examples/js/controls/OrbitControls.js"></script>
+
+    <script>
+        let scene, camera, renderer, controls, raycaster, mouse;
+        const planets = [];
+        const orbits = [];
+        const planetData = [
+            { name: "Mercury", radius: 0.383, distanceAU: 0.39, color: 0xaaaaaa, orbitSpeed: 0.01, info: "Mercury is the closest planet to the Sun.", mass: "3.285 × 10^23 kg", moons: "None", orbitalPeriod: "88 days" },
+            { name: "Venus", radius: 0.949, distanceAU: 0.72, color: 0xffcc99, orbitSpeed: 0.008, info: "Venus has a thick atmosphere and is the hottest planet.", mass: "4.867 × 10^24 kg", moons: "None", orbitalPeriod: "225 days" },
+            { name: "Earth", radius: 1, distanceAU: 1, color: 0x0000ff, orbitSpeed: 0.007, info: "Earth is the only planet known to support life.", mass: "5.972 × 10^24 kg", moons: "1 (Moon)", orbitalPeriod: "365.25 days" },
+            { name: "Mars", radius: 0.532, distanceAU: 1.52, color: 0xff4500, orbitSpeed: 0.006, info: "Mars is known as the Red Planet.", mass: "6.39 × 10^23 kg", moons: "2 (Phobos, Deimos)", orbitalPeriod: "687 days" },
+            { name: "Jupiter", radius: 11.21, distanceAU: 5.20, color: 0xffa500, orbitSpeed: 0.003, info: "Jupiter is the largest planet in our solar system.", mass: "1.898 × 10^27 kg", moons: "79 (including Ganymede, Europa)", orbitalPeriod: "12 years" },
+            { name: "Saturn", radius: 9.45, distanceAU: 9.58, color: 0xf5deb3, orbitSpeed: 0.002, info: "Saturn is famous for its beautiful rings.", mass: "5.683 × 10^26 kg", moons: "82 (including Titan)", orbitalPeriod: "29.5 years" },
+            { name: "Uranus", radius: 4.01, distanceAU: 19.22, color: 0x87ceeb, orbitSpeed: 0.001, info: "Uranus orbits the Sun on its side.", mass: "8.681 × 10^25 kg", moons: "27", orbitalPeriod: "84 years" },
+            { name: "Neptune", radius: 3.88, distanceAU: 30.05, color: 0x4682b4, orbitSpeed: 0.0008, info: "Neptune is the farthest planet from the Sun.", mass: "1.024 × 10^26 kg", moons: "14", orbitalPeriod: "165 years" }
+        ];
+
+        function init() {
+            // Set up the scene
+            scene = new THREE.Scene();
+
+            // Set up the camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100000);
+            camera.position.set(0, 500, 1500); // Initial camera position
+
+            // Set up the renderer
+            renderer = new THREE.WebGLRenderer();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.body.appendChild(renderer.domElement);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.position.set(0, 100, 0);
+            scene.add(pointLight);
+
+            // Sun (Central star)
+            const sunGeometry = new THREE.SphereGeometry(20, 32, 32);
+            const sunMaterial = new THREE.MeshBasicMaterial({color: 0xffcc00});
+            const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+            scene.add(sun);
+
+            // Add planets and orbits
+            planetData.forEach(planet => {
+                const distance = planet.distanceAU * scaleFactor() * 149597870.7;
+                const planetMesh = addPlanet(planet.radius * 10, distance, planet.color);
+                const orbit = addSmoothOrbit(distance, 128); // Smooth orbit with 128 segments
+
+                planetMesh.userData = {
+                    name: planet.name,
+                    info: planet.info,
+                    mass: planet.mass,
+                    moons: planet.moons,
+                    orbitalPeriod: planet.orbitalPeriod
+                };
+
+                // Store the current angle for each planet
+                planets.push({
+                    mesh: planetMesh,
+                    distance: distance,
+                    speed: planet.orbitSpeed,
+                    angle: 0 // Initial angle
+                });
+                orbits.push(orbit);
+            });
+
+            // Add stars
+            addStars(2000);
+
+            // Add OrbitControls for user interaction
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableZoom = true;
+            controls.minDistance = 50;
+            controls.maxDistance = 5000;
+
+            // Raycaster for detecting clicks
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+
+            window.addEventListener('resize', onWindowResize, false);
+            window.addEventListener('click', onPlanetClick, false);
+
+            animate();
+        }
+
+        function scaleFactor() {
+            return 100 / 149597870.7;
+        }
+
+        // Handle window resize
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        // Add planets to the scene
+        function addPlanet(radius, distance, color) {
+            const planetGeometry = new THREE.SphereGeometry(radius, 32, 32);
+            const planetMaterial = new THREE.MeshStandardMaterial({color: color});
+            const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+            planet.position.set(distance, 0, 0);
+            scene.add(planet);
+            return planet;
+        }
+
+        // Create smooth circular orbits using THREE.Line
+        function addSmoothOrbit(distance, segments) {
+            const orbitGeometry = new THREE.BufferGeometry();
+            const points = [];
+
+            // Generate points for a smooth circular orbit
+            for (let i = 0; i < segments; i++) {
+                const theta = (i / segments) * Math.PI * 2; // Angle in radians
+                const x = Math.cos(theta) * distance;
+                const z = Math.sin(theta) * distance;
+                points.push(new THREE.Vector3(x, 0, z)); // Circle in the XZ-plane
+            }
+
+            orbitGeometry.setFromPoints(points);
+            const orbitMaterial = new THREE.LineBasicMaterial({ color: 0x888888 });
+            const orbit = new THREE.LineLoop(orbitGeometry, orbitMaterial);
+            scene.add(orbit);
+            return orbit;
+        }
+
+        // Detect planet click and show info
+        function onPlanetClick(event) {
+            // Convert mouse coordinates to normalized device coordinates
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            // Update the raycaster with the camera and mouse position
+            raycaster.setFromCamera(mouse, camera);
+
+            // Check for intersections with planets
+            const intersects = raycaster.intersectObjects(planets.map(p => p.mesh));
+
+            if (intersects.length > 0) {
+                const planet = intersects[0].object;
+                showPlanetDetails(planet.userData.name, planet.userData.info, planet.userData.mass, planet.userData.moons, planet.userData.orbitalPeriod);
+            }
+        }
+
+        // Show planet details in the side panel
+        function showPlanetDetails(name, info, mass, moons, orbitalPeriod) {
+            const detailsPanel = document.getElementById('planet-details');
+            document.getElementById('planet-name').innerText = name;
+            document.getElementById('planet-info').innerText = info;
+            document.getElementById('planet-mass').innerText = `Mass: ${mass}`;
+            document.getElementById('planet-moons').innerText = `Moons: ${moons}`;
+            document.getElementById('planet-orbital-period').innerText = `Orbital Period: ${orbitalPeriod}`;
+            detailsPanel.style.display = 'block';
+        }
+
+        // Add stars to the background
+        function addStars(amount) {
+            const starGeometry = new THREE.BufferGeometry();
+            const starMaterial = new THREE.PointsMaterial({ color: 0xffffff });
+
+            const starPositions = new Float32Array(amount * 3);
+            for (let i = 0; i < amount * 3; i++) {
+                starPositions[i] = (Math.random() - 0.5) * 10000;
+            }
+
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+            const stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+        }
+
+        // Animate the scene (Planets' orbits and controls)
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Rotate planets around the Sun following their orbits
+            planets.forEach(planetObj => {
+                const planet = planetObj.mesh;
+                planetObj.angle += planetObj.speed;
+                planet.position.x = Math.cos(planetObj.angle) * planetObj.distance;
+                planet.position.z = Math.sin(planetObj.angle) * planetObj.distance;
+            });
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Initialize the web app
+        window.onload = init;
+    </script>
+</body>
+</html>

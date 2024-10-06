@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Website</title>
+  <link rel="shortcut icon" href="ourlogo.jpg" type="image/x-icon">
+
+  
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style type="text/tailwindcss">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+    }
+
+    body {
+      background: linear-gradient(180deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+      position: relative; /* Positioning for stars */
+    }
+
+    h1, h2, h3, p {
+      color: white; /* Set text color to white */
+    }
+
+    h1 {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    h2 {
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+    }
+
+    .video-container {
+      border-radius: 1rem;
+      overflow: hidden;
+    }
+
+    .video {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+
+    .textarea {
+      height: 300px;
+      padding: 1rem;
+      border-radius: 1rem;
+      border: 1px solid #ddd;
+      resize: vertical;
+    }
+
+    section.mt-4 {
+      margin-top: 80px; /* 2 inches = 64px */
+    }
+
+    .class {
+      font-size: xx-large;
+    }
+
+    .bg-card {
+      background-color: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 1rem;
+      transition: transform 0.3s;
+    }
+
+    .bg-card:hover {
+      transform: scale(1.05);
+    }
+
+    .btn {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.5rem 1rem;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .btn:hover {
+      background-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    .youtube-thumbnail {
+      width: 100%;
+      height: auto;
+      border-radius: 1rem;
+      margin-bottom: 10px;
+    }
+
+    /* Star Styles */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      opacity: 0.8;
+      animation: twinkle 1.5s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from {
+        opacity: 0.5;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    .gallery-container {
+      perspective: 1000px;
+      width: 400px;
+      height: 400px;
+      cursor: grab;
+  }
+  
+  .gallery-container:active {
+      cursor: grabbing;
+  }
+  
+  .gallery {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+  }
+  
+  .gallery img {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  }
+  
+  .gallery img:nth-child(1) { transform: rotateY(0deg) translateZ(300px); }
+  .gallery img:nth-child(2) { transform: rotateY(72deg) translateZ(300px); }
+  .gallery img:nth-child(3) { transform: rotateY(144deg) translateZ(300px); }
+  .gallery img:nth-child(4) { transform: rotateY(216deg) translateZ(300px); }
+  .gallery img:nth-child(5) { transform: rotateY(288deg) translateZ(300px); }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Header Styling */
+header {
+    background-color: #333;
+    color: white;
+    padding: 15px 0;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo h1 {
+    font-size: 24px;
+    margin-left: 20px;
+}
+
+/* Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 15px;
+    background-color: #444;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: #555;
+}
+
+/* Return Back Button */
+.return-back {
+    text-decoration: none;
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.return-back:hover {
+    background-color: #d32f2f;
+}
+
+/* Content Section */
+.content {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.content h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.content p {
+    font-size: 18px;
+    color: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .nav-links li {
+        margin-bottom: 10px;
+    }
+
+    .return-back {
+        margin-top: 10px;
+    }
+
+    .header-container {
+        flex-direction: column;
+    }
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="btns">
+   
+      <li><a href="new.html">Rotation of stars</a></li>
+                    <li><a href="2d.html">2D model with data</a></li>
+                    <li><a href="neww.html">3D model with data</a></li>
+                    <li><a href="taukay.html">3D model</a></li>
+                    <li><a href="jonny.html">3D model of Earth</a></li>
+                    <li><a href="sa.html">Simulation of Asteroids</a></li>
+                    <li><a href="template.html">Graphical Repregentation</a></li>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <section class="text-center">
+        <h1 class="text-6xl font-bold" class="loading-container"><div>
+          <div class="loading-text">
+            <span>B</span>
+            <span>A</span>
+            <span>N</span>
+            <span>N</span>
+            <span>E</span>
+            <span>D</span>
+            <span>-</span>
+            <span>C</span>
+            <span>L</span>
+            <span>A</span>
+            <span>N</span>
+            <span>;</span>
+          </div>
+        </div></h1>
+        <h2 class="text-2xl">Explore the Universe with Interactive Videos, 2D model and 3D model.</h2>
+      </section>
+    </section>
+
+    <!-- Updated Section with Image and Text -->
+  
+
+
+
+
+    <section class="text-gray-600 body-font">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-20">
+          <h2 class="text-2xl font-medium title-font mb-4 text-white-900">Discover Topics</h2>
+        </div>
+        <div class="flex flex-wrap -m-4">
+          <div class="p-4 lg:w-1/4 md:w-1/2">
+            <div class="h-full flex flex-col items-center text-center">
+              <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="ee.jpg">
+              <div class="w-full">
+                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick="window.open('iindex.html')">Planets</button>
+                
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/4 md:w-1/2">
+            <div class="h-full flex flex-col items-center text-center">
+              <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="eee.jpg">
+              <div class="w-full">
+                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick="window.open('pindex.html')">Esclipses</button>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/4 md:w-1/2">
+            <div class="h-full flex flex-col items-center text-center">
+              <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="k.jpg">
+              <div class="w-full">
+                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick="window.open('tkb.html')">Kuiper Belt</button>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="p-4 lg:w-1/4 md:w-1/2">
+            <div class="h-full flex flex-col items-center text-center">
+              <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="oo.jpg">
+              <div class="w-full">
+                <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow" onclick="window.open('cloud.html')">Oort Cloud</button>
+                
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+ 
+
+<section>
+
+
+
+
+  <center>
+    <div class="gallery-container">
+      <div class="gallery">
+        <img src="j.jpg" alt="Mercury" style="margin-top: 3rem;">
+        <img src="mr.jpg" alt="Mars" style="margin-top: 3rem;">
+        <img src="n.jpg" alt="Neptun" style="margin-top: 3rem;">
+        <img src="s.jpg" alt="Saturn" style="margin-top: 3rem;">
+        <img src="v.jpg" alt="Venus" style="margin-top: 3rem;">
+      </div>
+  </div>
+</center>
+</section>
+<section>
+
+  <div>
+    <center>
+      <h1 class="text-x5">3D image rotating gallery</h1>
+    
+    </center>
+    </div>
+</section>
+
+<section class="mt-10 flex flex-wrap -mx-4">
+  <div class="w-full lg:w-1/2 mb-10 px-4">
+    <img src="xya.jpg" alt="Universe Origins" class="rounded-lg w-full h-110 object-cover shadow-lg">
+  </div>
+  <div class="w-full lg:w-1/2 mb-10 px-4">
+    <div class="bg-card w-full h-full p-6 rounded-lg shadow-lg">
+      <h1 class="hari text-4xl font-bold text-center">Journey Through the Origins of the Universe 🌌</h1>
+      <p class="mt-4 text-white-700 text-lg leading-relaxed">
+        The universe began about 13.8 billion years ago with the Big Bang, a massive explosion that set space and time into rapid expansion. Initially, it was a hot, dense mix of particles, but as it cooled, atoms formed, leading to the creation of stars, galaxies, and planets. Over billions of years, gravity shaped the universe, and our solar system emerged around 4.6 billion years ago. Today, the universe continues to expand, with mysteries like dark matter, dark energy, and the possibility of life beyond Earth still waiting to be fully understood.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-4">
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="from.jpg" alt="blog">
+          <div class="p-6">
+        
+            <p class="leading-relaxed mb-3">Views From The Cupola</p>
+            <div class="flex items-center flex-wrap ">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="self.jpg" alt="blog">
+          <div class="p-6">
+
+            <p class="leading-relaxed mb-3">Astronaut Selfies</p>
+            <div class="flex items-center flex-wrap">
+                
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-4 md:w-1/3">
+        <div class="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
+          <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="kali.jpg" alt="blog">
+          <div class="p-6">
+        
+            <p class="leading-relaxed mb-3">NASA’s Europa Clipper</p>
+            <div class="flex items-center flex-wrap ">
+             
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="relative w-full h-screen">
+  <img src="fe.jpg" alt="Background" class="absolute inset-0 w-full h-full object-cover">
+  <div class="absolute inset-0 flex items-center justify-start pl-10">
+      <div class="text-white">
+          <h1 class="text-5xl text-black font-bold">Earth Information Center</h1>
+          <h2 class="text-4xl text-black font-bold">For more than 50 years, NASA satellites have provided data on Earth's land, water, air, temperature, and climate. NASA's Earth Information Center allows visitors to see how our planet is changing in six key areas: sea level rise and coastal impacts, health and air quality, wildfires, greenhouse gases, sustainable energy, and agriculture.</h2>
+      </div>
+  </div>
+</section>
+
+
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <img alt="Galaxies" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow-lg" src="gal.jpg">
+      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <h1 class="text-white-900 text-4xl title-font font-medium mb-1" id="galaxies">GALAXIES</h1>
+        
+        <p class="mt-4 text-white-700 text-lg leading-relaxed">
+          Galaxies form from immense clouds of gas and dust in the early universe, collapsing under gravity over billions of years. These clouds eventually form stars and star systems, which group into larger structures. Over time, gravity shapes galaxies into different forms like spiral, elliptical, or irregular shapes. Galaxies often contain billions of stars, planets, and dark matter, and they interact through gravitational forces, sometimes merging or passing near each other.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <section class="mt-10 flex flex-wrap -mx-4">
+      <div class="w-full lg:w-1/2 mb-10 px-4">
+        <img src="lya.jpg" alt="Galaxy" class="object-cover h-100 w-full rounded-lg shadow-lg">
+      </div>
+      <div class="w-full lg:w-1/2 mb-10 px-4">
+        <div class="bg-card w-full h-full p-6 rounded-lg shadow-lg">
+          <h1 class="hari text-3xl font-bold text-center">Galaxy</h1>
+          <p class="mt-4 text-white-700">
+            A galaxy is a vast system composed of stars, stellar remnants, interstellar gas, dust, and dark matter, all bound together by gravity. Here are some key characteristics and components of galaxies:
+          </p>
+          <ul class="mt-2 list-disc list-inside text-white-600">
+            <li><strong>Stars:</strong> The fundamental building blocks of galaxies, which can range from small, cool red dwarfs to massive, hot blue giants.</li>
+            <li><strong>Nebulae:</strong> Clouds of gas and dust where new stars are born (star-forming regions) or remnants of dead or dying stars.</li>
+            <li><strong>Star Clusters:</strong> Groups of stars that are gravitationally bound together. There are two main types: open clusters (younger and less dense) and globular clusters (older and denser).</li>
+            <li><strong>Dark Matter:</strong> An unseen substance that makes up a significant portion of a galaxy's mass and influences its gravitational dynamics.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="text-gray-600 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <img alt="Solar System" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded-lg shadow-lg" src="solar.jpg">
+      <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+        <h1 class="text-white-900 text-3xl title-font font-medium mb-1" id="solar-system">SOLAR SYSTEM</h1>
+        <p class="leading-relaxed text-white-700">
+          The solar system consists of the Sun and all celestial objects bound to it by gravity, including eight planets, their moons, dwarf planets, asteroids, and comets. It formed approximately 4.6 billion years ago from a rotating disk of gas and dust. The inner planets (Mercury, Venus, Earth, and Mars) are rocky, while the outer planets (Jupiter, Saturn, Uranus, and Neptune) are gas giants or ice giants. The Kuiper Belt and Oort Cloud house many small bodies, contributing to our understanding of the solar system's evolution.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <section>
+      <h1><center>Join us for interactive videos</center></h1>
+  
+      <div class="flex justify-center items-center mt-4">
+        <iframe class="video" src="https://www.youtube.com/embed/8hA6KdJfphM" frameborder="0" allowfullscreen style="width: 50vw; height: 50vh; margin: 0 auto;"></iframe>
+      </div>
+    </section>
+
+    <footer class="text-gray-700 body-font">
+      <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-wrap text-center">
+          <div class="w-full md:w-1/2 px-4">
+            <h2 class="text-xl font-medium title-font text-gray-900 mb-2">About Us</h2>
+            <p class="leading-relaxed text-base">We are a group of space enthusiasts dedicated to exploring the wonders of the universe through interactive learning experiences.</p>
+          </div>
+          <div class="w-full md:w-1/2 px-4">
+            <h2 class="text-xl font-medium title-font text-gray-900 mb-2">Contact</h2>
+            <p class="leading-relaxed text-base">For inquiries, please reach out to us at <a href="email=tkaji8130" class="text-indigo-500">email=tkaji8130</a>.</p>
+          </div>
+        </div>
+      </div>
+      <h1>
+        <center><a href="https://www.youtube.com/@banned-clan16" class="text-x3">Visit our YouTube channel</a></center>
+      </h1>
+    </footer>
+  </main>
+  <script>
+    function scrollToSection(id) {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+
+    function createStars() {
+      const starField = document.createElement('div');
+      for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 'px';
+        star.style.height = star.style.width; // Make it a circle
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.animationDuration = Math.random() * 2 + 1 + 's';
+        starField.appendChild(star);
+      }
+      document.body.appendChild(starField);
+    }
+
+    createStars(); // Call to create stars
+
+
+    const gallery = document.querySelector('.gallery');
+let startX, currentX, rotateY = 0, isDragging = false;
+
+// Mouse dragging functionality
+gallery.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX;
+});
+
+window.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+        currentX = e.pageX;
+        const deltaX = currentX - startX;
+        rotateY += deltaX * 0.2; // Sensitivity factor for smoother rotation
+        gallery.style.transform = `rotateY(${rotateY}deg)`;
+        startX = currentX; // Update the start point for smooth dragging
+    }
+});
+
+window.addEventListener('mouseup', () => {
+    isDragging = false;
+});
+
+// Touch dragging functionality
+gallery.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    startX = e.touches[0].pageX;
+});
+
+window.addEventListener('touchmove', (e) => {
+    if (isDragging) {
+        currentX = e.touches[0].pageX;
+        const deltaX = currentX - startX;
+        rotateY += deltaX * 0.2; // Sensitivity factor for touch rotation
+        gallery.style.transform = `rotateY(${rotateY}deg)`;
+        startX = currentX;
+    }
+});
+
+window.addEventListener('touchend', () => {
+    isDragging = false;
+});
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styless.css">
+    <title>Planets of the Solar System</title>
+    <link rel="shortcut icon" href="ourlogo.jpg" type="image/x-icon">
+
+</head>
+<body>
+    <header>
+        <h1>Planets of the Solar System</h1>
+    </header>
+    <main>
+        <div class="planet-container">
+            <div class="planet-card" id="mercury">
+                <h2>Mercury</h2>
+                <img src="m.jpg" alt="Mercury">
+                <p>Mercury is the closest planet to the Sun and the smallest planet in the Solar System.</p>
+                <button onclick="showDetails('mercury')">More Info</button>
+            </div>
+            <div class="planet-card" id="venus">
+                <h2>Venus</h2>
+                <img src="v.jpg" alt="Venus">
+                <p>Venus is the second planet from the Sun and is Earth's closest planetary neighbor.</p>
+                <button onclick="showDetails('venus')">More Info</button>
+            </div>
+            <div class="planet-card" id="earth">
+                <h2>Earth</h2>
+                <img src="e.jpg" alt="Earth">
+                <p>Earth is the third planet from the Sun and the only astronomical object known to harbor life.</p>
+                <button onclick="showDetails('earth')">More Info</button>
+            </div>
+            <div class="planet-card" id="mars">
+                <h2>Mars</h2>
+                <img src="mr.jpg" alt="Mars">
+                <p>Mars is the fourth planet from the Sun and is known as the Red Planet.</p>
+                <button onclick="showDetails('mars')">More Info</button>
+            </div>
+            <div class="planet-card" id="jupiter">
+                <h2>Jupiter</h2>
+                <img src="j.jpg" alt="Jupiter">
+                <p>Jupiter is the fifth planet from the Sun and the largest in the Solar System.</p>
+                <button onclick="showDetails('jupiter')">More Info</button>
+            </div>
+            <div class="planet-card" id="saturn">
+                <h2>Saturn</h2>
+                <img src="s.jpg" alt="Saturn">
+                <p>Saturn is the sixth planet from the Sun and is known for its stunning rings.</p>
+                <button onclick="showDetails('saturn')">More Info</button>
+            </div>
+            <div class="planet-card" id="uranus">
+                <h2>Uranus</h2>
+                <img src="u.jpg" alt="Uranus">
+                <p>Uranus is the seventh planet from the Sun and has a unique blue color.</p>
+                <button onclick="showDetails('uranus')">More Info</button>
+            </div>
+            <div class="planet-card" id="neptune">
+                <h2>Neptune</h2>
+                <img src="n.jpg" alt="Neptune">
+                <p>Neptune is the eighth and farthest planet from the Sun in the Solar System.</p>
+                <button onclick="showDetails('neptune')">More Info</button>
+            </div>
+        </div>
+        <div id="planet-detail" class="planet-detail"></div>
+    </main>
+    <script src="sscript.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Earth Without Texture</title>
+  <style>
+    body { margin: 0; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    // Scene, Camera, Renderer
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true, // Enable antialiasing
+    });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Load texture with error handling
+    const textureLoader = new THREE.TextureLoader();
+    const earthTexture = textureLoader.load('earthtexture.jpg');
+    // Create a simple sphere with a solid color
+    const earthGeometry = new THREE.SphereGeometry(2, 32, 32);
+    const earthMaterial = new THREE.MeshBasicMaterial({ map: earthTexture }); // Blue colored Earth
+    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+    scene.add(earth);
+
+    // Add a light to the scene
+    const light = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(light);
+
+    // Camera position
+    camera.position.set(0, 0, 8); // Position the camera back to view the object
+    camera.lookAt(0, 0, 0); // Ensure camera is pointing at the Earth
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      earth.rotation.y += 0.01; // Rotate the Earth
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+</body>
+</html>

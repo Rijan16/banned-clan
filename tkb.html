@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Kuiper Belt: A Cosmic Frontier</title>
+    <link rel="shortcut icon" href="ourlogo.jpg" type="image/x-icon">
+
+    <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS file -->
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 1) 100%);
+            overflow: auto; /* Allow scrolling */
+            line-height: 1.6;
+            position: relative; /* For positioning stars */
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid #00ffcc;
+            position: relative;
+            z-index: 2; /* Ensure header is on top */
+        }
+
+        header h1 {
+            font-size: 3.5em;
+            margin: 0;
+            text-shadow: 2px 2px 15px #00ffcc;
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        nav ul li a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 1.2em;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+            position: relative;
+            z-index: 1; /* Below the header */
+            animation: fadeIn 1s ease-in-out; /* Fade-in effect */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            font-size: 2.5em;
+            border-bottom: 1px solid #00ffcc;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 10px #00ffcc;
+        }
+
+        h3 {
+            font-size: 2em;
+            margin-top: 20px;
+            text-shadow: 1px 1px 5px #00ffcc;
+        }
+
+        p {
+            margin: 15px 0;
+            text-shadow: 1px 1px 5px #000;
+        }
+
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-top: 2px solid #00ffcc;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            z-index: 2; /* Ensure footer is on top */
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #00ffcc;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 3; /* Ensure button is on top */
+        }
+
+        .scroll-top:hover {
+            background: #ffffff;
+        }
+
+        /* Star Animation */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide overflow */
+            pointer-events: none; /* Prevent interaction */
+            z-index: 0; /* Behind all content */
+            opacity: 0.2; /* Make stars slightly transparent */
+        }
+
+        .star {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8); /* White stars */
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate; /* Twinkling effect */
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div> <!-- Container for stars -->
+    
+    <header>
+        <h1>The Kuiper Belt</h1>
+        <nav>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#formation">Formation</a></li>
+                <li><a href="#objects">Kuiper Belt Objects</a></li>
+                <li><a href="#exploration">Exploration</a></li>
+                <li><a href="#facts">Interesting Facts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>The Kuiper Belt is a vast region of space beyond the orbit of Neptune, teeming with icy bodies and remnants from the solar system's formation. It extends from approximately 30 to 55 astronomical units (AU) from the Sun and contains a diverse array of objects, including dwarf planets, comets, and asteroids.</p>
+        </section>
+
+        <section id="formation">
+            <h2>Formation of the Kuiper Belt</h2>
+            <p>The Kuiper Belt formed about 4.5 billion years ago, during the early stages of the solar system's development. As the Sun and the planets coalesced from a primordial disk of gas and dust, the outer regions of this disk were left populated with smaller icy bodies. These remnants, rather than merging into larger planets, became the building blocks of the Kuiper Belt.</p>
+        </section>
+
+        <section id="objects">
+            <h2>Kuiper Belt Objects (KBOs)</h2>
+            <p>Kuiper Belt Objects are categorized into various groups:</p>
+            <ul>
+                <li><strong>Dwarf Planets:</strong> Pluto, Haumea, and Makemake are some of the known dwarf planets located in the Kuiper Belt.</li>
+                <li><strong>Ice Giants:</strong> Many KBOs are composed largely of ice and rocky materials, contributing to their unique characteristics.</li>
+                <li><strong>Comets:</strong> Short-period comets are believed to originate from the Kuiper Belt, as they are composed of ices and dust.</li>
+            </ul>
+        </section>
+
+        <section id="exploration">
+            <h2>Exploration of the Kuiper Belt</h2>
+            <p>The exploration of the Kuiper Belt has expanded our understanding of the outer solar system. NASA's New Horizons mission, which flew by Pluto in 2015, provided unprecedented images and data about this distant dwarf planet and its moons. The mission continues to send back information about other Kuiper Belt objects as it ventures further into this unexplored region.</p>
+        </section>
+
+        <section id="facts">
+            <h2>Interesting Facts about the Kuiper Belt</h2>
+            <ul>
+                <li>The Kuiper Belt is estimated to contain over 100,000 objects larger than 100 km in diameter.</li>
+                <li>The region is named after Dutch-American astronomer Gerard Kuiper, who hypothesized its existence in 1951.</li>
+                <li>Unlike the asteroid belt, the Kuiper Belt is much larger and is located farther from the Sun.</li>
+            </ul>
+        </section>
+    </div>
+
+    <button class="scroll-top" onclick="scrollToTop()">Scroll to Top</button>
+
+    <footer>
+        <p>© 2024 The Kuiper Belt: A Cosmic Frontier</p>
+    </footer>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Generate random stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            let star = document.createElement('div');
+            star.classList.add('star');
+            star.style.width = Math.random() * 2 + 'px'; // Random size for stars
+            star.style.height = star.style.width; // Make it a circle
+            star.style.top = Math.random() * 100 + 'vh'; // Random vertical position
+            star.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+            star.style.animationDuration = Math.random() * 2 + 1 + 's'; // Random twinkle speed
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>

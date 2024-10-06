@@ -1,0 +1,50 @@
+.btns{
+    display: flex;
+column-gap: 2rem;
+background-color: var(--color-white-shade);
+}
+.btn{
+    background-color: black;
+    color:white;
+    transition: all
+    scale 0.25s ease-in,
+    opacity 0.25s ease-in,
+    filter 0.25s ease-in
+    ;
+    &:hover{
+        scale: 1.2;
+    }
+}
+.btns:has(.btn:hover) .btn:not(:hover){
+    scale: 0.8;
+    opacity: 0.5;
+    filter: blur(4px);
+}
+header {
+    height: 8vh; /* 8% of the viewport height */
+    background-color: #333; /* optional background color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+  
+  nav.btns {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 16px;
+  }
+  
+  button.btn {
+    background-color: #333; /* optional background color */
+    color: #fff; /* optional text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button.btn:hover {
+    background-color: #555; /* optional hover background color */
+  }

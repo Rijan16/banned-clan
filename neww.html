@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Planets Rotation</title>
+	<link rel="shortcut icon" href="ourlogo.jpg" type="image/x-icon">
+
+	<style>
+		body {
+			margin: 0;
+		}
+		
+		#img{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 60%;
+			height: 60vh;
+			cursor: grab;
+			object-fit: cover;
+		}
+		
+		section {
+			position: absolute;
+			top: 60vh;
+			left: 0;
+			width: 100%;
+			background-color: #f0f0f0;
+			padding: 20px;
+		}
+		
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		
+		th, td {
+			padding: 10px;
+			border: 1px solid #ddd;
+			text-align: left;
+		}
+		
+		th {
+			background-color: #f0f0f0;
+		}
+	</style>
+</head>
+<body>
+	<img id="img" src="download.png" alt="Image">
+	<section>
+		<h1>Planetary Information</h1>
+		<table id="planetTable">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Avg. Perigee</th>
+					<th>Mean Anomaly</th>
+					<th>Eccentricity</th>
+					<th>Inclination</th>
+					<th>RAAN</th>
+					<th>Period</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- Planet rows will be populated here -->
+			</tbody>
+		</table>
+	</section>
+	
+	<script>
+		var deg = 0;
+		var startX, startY, isDown = false;
+
+		document.getElementById('img').addEventListener('mousedown', function(event) {
+			isDown = true;
+			startX = event.clientX;
+			startY = event.clientY;
+		});
+
+		document.addEventListener('mousemove', function(event) {
+			if (isDown) {
+				var deltaX = event.clientX - startX;
+				var deltaY = event.clientY - startY;
+				var angle = Math.atan2(deltaY, deltaX) * 180 / Math.PI;
+				deg = angle;
+				document.getElementById('img').style.transform = 'rotate(' + deg + 'deg)';
+			}
+		});
+
+		document.addEventListener('mouseup', function() {
+			isDown = false;
+		});
+		
+		// Planet data for size, speed, and orbital parameters
+		const planetData = {
+			mercury: {
+				name: 'Mercury',
+				size: '4,879 km',
+				speed: '47.87 km/s',
+				argPerigee: '29.124°',
+				meanAnomaly: '174.795°',
+				eccentricity: '0.2056',
+				inclination: '7.005°',
+				semiMajorAxis: '57,909,227 km',
+				raan: '48.331°',
+				period: '87.969 days'
+			},
+			venus: {
+				name: 'Venus',
+				size: '12,104 km',
+				speed: '35.02 km/s',
+				argPerigee: '54.884°',
+				meanAnomaly: '50.115°',
+				eccentricity: '0.0068',
+				inclination: '3.394°',
+				semiMajorAxis: '108,208,930 km',
+				raan: '76.680°',
+				period: '224.701 days'
+			},
+			earth: {
+				name: 'Earth',
+				size: '12,742 km',
+				speed: '29.78 km/s',
+				argPerigee: '102.937°',
+				meanAnomaly: '357.525°',
+				eccentricity: '0.0167',
+				inclination: '0.000°',
+				semiMajorAxis: '149,597,890 km',
+				raan: '0.000°',
+				period: '365.256 days'
+			},
+			mars: {
+				name: 'Mars',
+				size: '6,779 km',
+				speed: '24.07 km/s',
+				argPerigee: '286.537°',
+				meanAnomaly: '202.020°',
+				eccentricity: '0.0934',
+				inclination: '1.850°',
+				semiMajorAxis: '227,939,200 km',
+				raan: '49.562°',
+				period: '687.024 days'
+			},
+			jupiter: {
+ name: 'Jupiter',
+				size: '142,984 km',
+				speed: '13.07 km/s',
+				argPerigee: '20.020°',
+				meanAnomaly: '18.332°',
+				eccentricity: '0.0484',
+				inclination: '1.305°',
+				semiMajorAxis: '778,299,000 km',
+				raan: '100.464°',
+				period: '4332.820 days'
+			},
+			saturn: {
+				name: 'Saturn',
+				size: '116,460 km',
+				speed: '9.69 km/s',
+				argPerigee: '317.020°',
+				meanAnomaly: '317.020°',
+				eccentricity: '0.0542',
+				inclination: '2.490°',
+				semiMajorAxis: '1,426,666,400 km',
+				raan: '113.665°',
+				period: '10759.220 days'
+			},
+			uranus: {
+				name: 'Uranus',
+				size: '51,118 km',
+				speed: '6.81 km/s',
+				argPerigee: '141.050°',
+				meanAnomaly: '141.050°',
+				eccentricity: '0.0472',
+				inclination: '0.770°',
+				semiMajorAxis: '2,870,972,200 km',
+				raan: '74.006°',
+				period: '30687.150 days'
+			},
+			neptune: {
+				name: 'Neptune',
+				size: '49,528 km',
+				speed: '5.43 km/s',
+				argPerigee: '256.225°',
+				meanAnomaly: '256.225°',
+				eccentricity: '0.0086',
+				inclination: '1.770°',
+				semiMajorAxis: '4,497,072,000 km',
+				raan: '131.784°',
+				period: '60190.030 days'
+			}
+		};
+		
+		// Populate the table with planet data
+		const tableBody = document.getElementById('planetTable').getElementsByTagName('tbody')[0];
+		for (const planet in planetData) {
+			const row = tableBody.insertRow();
+			const nameCell = row.insertCell();
+			const avgPerigeeCell = row.insertCell();
+			const meanAnomalyCell = row.insertCell();
+			const eccentricityCell = row.insertCell();
+			const inclinationCell = row.insertCell();
+			const raanCell = row.insertCell();
+			const periodCell = row.insertCell();
+			
+			nameCell.textContent = planetData[planet].name;
+			avgPerigeeCell.textContent = planetData[planet].argPerigee;
+			meanAnomalyCell.textContent = planetData[planet].meanAnomaly;
+			eccentricityCell.textContent = planetData[planet].eccentricity;
+			inclinationCell.textContent = planetData[planet].inclination;
+			raanCell.textContent = planetData[planet].raan;
+			periodCell.textContent = planetData[planet].period;
+		}
+	</script>
+</body>
+</html>

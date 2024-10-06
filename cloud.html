@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Oort Cloud: The Edge of Our Solar System</title>
+    <link rel="shortcut icon" href="ourlogo.jpg" type="image/x-icon">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 1) 100%); /* Dark space gradient */
+            overflow-y: auto; /* Allow scrolling */
+            animation: spaceBackground 30s infinite alternate; /* Background animation */
+        }
+        
+        @keyframes spaceBackground {
+            0% {
+                background-color: rgba(0, 0, 0, 0.9);
+            }
+            100% {
+                background-color: rgba(0, 0, 0, 1);
+            }
+        }
+        
+        header {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-bottom: 2px solid #00ffcc;
+            position: relative;
+            z-index: 2; /* Ensure header is on top */
+        }
+        
+        header h1 {
+            font-size: 3.5em;
+            margin: 0;
+            text-shadow: 2px 2px 15px #00ffcc;
+        }
+        
+        nav {
+            margin: 20px 0;
+        }
+        
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+        
+        nav ul li a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            font-size: 1.2em;
+        }
+        
+        nav ul li a:hover {
+            color: #ffffff;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.8);
+            position: relative;
+            z-index: 1; /* Below the header */
+            animation: fadeIn 1s ease-in-out; /* Fade-in effect */
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        h2 {
+            font-size: 2.5em;
+            border-bottom: 1px solid #00ffcc;
+            padding-bottom: 10px;
+            text-shadow: 1px 1px 10px #00ffcc;
+        }
+        
+        h3 {
+            font-size: 2em;
+            margin-top: 20px;
+            text-shadow: 1px 1px 5px #00ffcc;
+        }
+        
+        p {
+            margin: 15px 0;
+            text-shadow: 1px 1px 5px #000;
+        }
+        
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-top: 2px solid #00ffcc;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            z-index: 2; /* Ensure footer is on top */
+        }
+        
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #00ffcc;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+            z-index: 3; /* Ensure button is on top */
+        }
+        
+        .scroll-top:hover {
+            background: #ffffff;
+        }
+        
+        /* Star Animation */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Hide overflow */
+            pointer-events: none; /* Prevent interaction */
+        }
+        
+        .star {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.8); /* White stars */
+            border-radius: 50%;
+            animation: twinkle 1.5s infinite alternate; /* Twinkling effect */
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The Oort Cloud</h1>
+        <nav>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#formation">Formation</a></li>
+                <li><a href="#objects">Objects in the Oort Cloud</a></li>
+                <li><a href="#exploration">Exploration</a></li>
+                <li><a href="#facts">Interesting Facts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="introduction">
+            <h2>Introduction</h2>
+            <p>The Oort Cloud is a theoretical region of space that surrounds our solar system, believed to be home to trillions of icy bodies and the origin of long-period comets. It is thought to extend from about 2,000 to 100,000 astronomical units (AU) from the Sun, marking the outer boundary of our solar system and representing the remnants of the solar system's formation.</p>
+        </section>
+
+        <section id="formation">
+            <h2>Formation of the Oort Cloud</h2>
+            <p>The Oort Cloud is thought to have formed from the leftover materials after the formation of the solar system. As the gas giants like Jupiter and Saturn formed, their gravitational forces scattered small icy bodies in the outer regions. Some of these bodies were ejected into the far reaches of space, creating the Oort Cloud. This region is thought to have both a spherical outer shell and a denser inner region, often referred to as the Hills Cloud.</p>
+        </section>
+
+        <section id="objects">
+            <h2>Objects in the Oort Cloud</h2>
+            <p>While no direct observations of the Oort Cloud have been made, it is theorized to contain numerous objects, including:</p>
+            <ul>
+                <li><strong>Icy Bodies:</strong> Composed mainly of water ice, ammonia, and methane, these objects are the building blocks of comets.</li>
+                <li><strong>Long-Period Comets:</strong> Comets with orbits that take them far beyond the planets, often taking thousands of years to complete one orbit.</li>
+                <li><strong>Dwarf Planets:</strong> Potentially, some dwarf planets may reside in the distant reaches of the Oort Cloud.</li>
+            </ul>
+        </section>
+
+        <section id="exploration">
+            <h2>Exploration of the Oort Cloud</h2>
+            <p>Exploring the Oort Cloud poses significant challenges due to its vast distance from Earth and the sparsity of its objects. Current and future missions are focused on studying comets that originate from this region. For example, missions like ESA's Rosetta and NASA's Deep Impact have provided insights into the composition of these icy bodies, giving clues about the materials present in the Oort Cloud.</p>
+        </section>
+
+        <section id="facts">
+            <h2>Interesting Facts about the Oort Cloud</h2>
+            <ul>
+                <li>The Oort Cloud is named after Dutch astronomer Jan Oort, who proposed its existence in 1950.</li>
+                <li>It is estimated that the Oort Cloud could contain up to 200 billion comets.</li>
+                <li>The Oort Cloud is believed to be the source of most long-period comets observed in our solar system.</li>
+            </ul>
+        </section>
+    </div>
+
+    <button class="scroll-top" onclick="scrollToTop()">Scroll to Top</button>
+
+    <footer>
+        <p>© 2024 The Oort Cloud: The Edge of Our Solar System</p>
+    </footer>
+
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+     
+            const starsContainer = document.createElement('div');
+            starsContainer.classList.add('stars');
+            document.body.appendChild(starsContainer);
+        
+            for (let i = 0; i < 100; i++) {
+                let star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = Math.random() * 2 + 'px'; // Random size for stars
+                star.style.height = star.style.width; // Make it a circle
+                star.style.top = Math.random() * 100 + 'vh'; // Random vertical position
+                star.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                starsContainer.appendChild(star);
+            }
+      
+        
+
+    </script>
+</body>
+</html>
